@@ -19,6 +19,7 @@
 * [no-duplicate-attributes](rule/no-duplicate-attributes.md)
 * [no-element-event-actions](rule/no-element-event-actions.md)
 * [no-extra-mut-helper-argument](rule/no-extra-mut-helper-argument.md)
+* [no-glyph-only](rule/no-glyph-only.md)
 * [no-html-comments](rule/no-html-comments.md)
 * [no-implicit-this](rule/no-implicit-this.md)
 * [no-inline-styles](rule/no-inline-styles.md)
@@ -55,3 +56,4 @@
 * [deprecated-each-syntax](rule/deprecations/deprecated-each-syntax.md)
 * [deprecated-inline-view-helper](rule/deprecations/deprecated-inline-view-helper.md)
 * [deprecated-render-helper](rule/deprecations/deprecated-render-helper.md)
+
