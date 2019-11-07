@@ -3,35 +3,47 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  // Change to dasherized-rule-name
   name: 'no-glyph-only',
 
   config: true,
 
-  // Example: No EOL Space
-  good: ['passingTest00', 'passing Test01'],
+  good: [
+    '<span class="icon icon-star-bg" role="img" aria-label="Favorite"></span>',
+    '<button aria-label="like this post">&check;</button>',
+    '<a href="email.html" class="icon-double-link"><span class="icon icon-email" role="img" aria-hidden="true"></span>    <span class="icon icon-chevron" role="img" aria-hidden="true"></span>Email</a>',
+  ],
 
   bad: [
     {
-      template: 'FailingTest00 ',
+      template: '<button>&frac13;</button> ',
 
       result: {
         moduleId: 'layout.hbs',
-        message: 'Reason FailingTest00 failed -- EOL Space',
+        message: 'A glyph cannot be used alone to convey information.',
         line: 1,
-        column: 13,
-        source: 'FailingTest00 ',
+        column: 0,
+        source: '<button>&frac13;</button>',
       },
     },
 
     {
-      template: 'FailingTest01 \n',
+      template: '<button>🇯🇵</button>',
       result: {
         moduleId: 'layout.hbs',
-        message: 'Reason FailingTest01 \n failed -- EOL Space',
+        message: 'A glyph cannot be used alone to convey information.',
         line: 1,
-        column: 13,
-        source: 'FailingTest01 \n',
+        column: 0,
+        source: '<button>🇯🇵</button>',
+      },
+    },
+    {
+      template: '<button>&#1F609;</button>',
+      result: {
+        moduleId: 'layout.hbs',
+        message: 'A glyph cannot be used alone to convey information.',
+        line: 1,
+        column: 0,
+        source: '<button>&#1F609;</button>',
       },
     },
   ],
