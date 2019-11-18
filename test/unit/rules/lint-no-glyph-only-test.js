@@ -3,48 +3,61 @@
 const generateRuleTests = require('../../helpers/rule-test-harness');
 
 generateRuleTests({
-  name: 'no-glyph-only',
 
+  name: 'no-glyph-only',
   config: true,
 
+  // Summary: 
+  // A TextNode with a glyph/emoji must provide adequate context for AT.
+  // At a minimum, one of the following criteria must be met:
+  // -- The glyph's TextNode also contains other text content (ideally, it is descriptive/meaningful)
+  // -- The glyph's ElementNode contains appropriately defined aria-related attributes
+
   good: [
-    '<span class="icon icon-star-bg" role="img" aria-label="Favorite"></span>',
-    '<button aria-label="like this post">&check;</button>',
-    '<a href="email.html" class="icon-double-link"><span class="icon icon-email" role="img" aria-hidden="true"></span>    <span class="icon icon-chevron" role="img" aria-hidden="true"></span>Email</a>',
+
+    // ElementNodes without TextNode children -- skip
+    // '<div></div>',
+    // '<div><p></p></div>',
+
+
+    // // Surrounding glyph with text content provides adequate context for the glyph,
+    // // even when the element is lacking meaningful aria-related attribute definitions
+    // '<div>Hamster emoji -- &#128057; -- as a dec-encoded HTML entity</div>',
+    // '<div>Hamster emoji -- &#x1F439; -- as a hex-encoded HTML entity</div>',
+
+    // // Multiple TextNode children
+    // '<div>&#128057;</div>',
+    // '<div>&#x1F439;</div>',
+    // '<div>&frac13;</div>',
+    '<div>- &#128057; -- &#x1F439; -- &frac13; --&#8531; -- &#x2153; -</div>'
+
+    // Based on common-a11y-failures app
+    // '<button aria-label="Purchase a hamster"><FaIcon @icon="envelope" /></button>'
+    // '<svg></svg>'
+
   ],
 
   bad: [
     {
-      template: '<button>&frac13;</button> ',
-
+      template: '<div>&#128057;</div>',
       result: {
         moduleId: 'layout.hbs',
-        message: 'A glyph cannot be used alone to convey information.',
+        message: 'Error ',
         line: 1,
         column: 0,
-        source: '<button>&frac13;</button>',
+        source: '<div>&#128057;</div>',
       },
     },
 
-    {
-      template: '<button>🇯🇵</button>',
-      result: {
-        moduleId: 'layout.hbs',
-        message: 'A glyph cannot be used alone to convey information.',
-        line: 1,
-        column: 0,
-        source: '<button>🇯🇵</button>',
-      },
-    },
-    {
-      template: '<button>&#1F609;</button>',
-      result: {
-        moduleId: 'layout.hbs',
-        message: 'A glyph cannot be used alone to convey information.',
-        line: 1,
-        column: 0,
-        source: '<button>&#1F609;</button>',
-      },
-    },
+    // {
+    //   template: 'FailingTest01 \n',
+    //   result: {
+    //     moduleId: 'layout.hbs',
+    //     message: 'Reason FailingTest01 \n failed -- EOL Space',
+    //     line: 1,
+    //     column: 13,
+    //     source: 'FailingTest01 \n',
+    //   },
+    // },
   ],
 });
