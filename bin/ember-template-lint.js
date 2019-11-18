@@ -59,13 +59,13 @@ function printErrors(errors, invocationOptions) {
   }
 }
 
-function lintFile(linter, filePath, moduleId) {
+function lintFile(linter, filePath, moduleId, shouldFix) {
   let toRead = filePath === STDIN ? process.stdin.fd : filePath;
 
   // TODO: swap to using get-stdin when we can leverage async/await
   let source = fs.readFileSync(toRead, { encoding: 'utf8' });
 
-  return linter.verify({ source, moduleId });
+  return linter.verifyAndFix({ source, moduleId, shouldFix });
 }
 
 function expandFileGlobs(positional) {
@@ -103,6 +103,9 @@ function parseArgv(_argv) {
         case '--filename':
           options.named.filename = toProcess.shift();
           break;
+        case '--fix':
+          options.named.fix = true;
+          break;
         case '--quiet':
           options.named.quiet = true;
           break;
@@ -135,7 +138,7 @@ function run() {
   let options = parseArgv(process.argv.slice(2));
 
   let {
-    named: { configPath, filename: filePathFromArgs = '', printPending, json },
+    named: { configPath, filename: filePathFromArgs = '', fix, printPending, json },
     positional,
   } = options;
 
@@ -162,7 +165,7 @@ function run() {
     let filePath = path.resolve(relativeFilePath);
     let fileName = relativeFilePath === STDIN ? filePathFromArgs : relativeFilePath;
     let moduleId = fileName.slice(0, -4);
-    let fileErrors = lintFile(linter, filePath, moduleId);
+    let fileErrors = lintFile(linter, filePath, moduleId, fix);
 
     if (printPending) {
       let failingRules = Array.from(
