@@ -178,6 +178,63 @@ describe('public api', function() {
     });
   });
 
+  describe('Linter.prototype.verifyAndFix', function() {
+    let basePath = null;
+    let linter;
+    let expected = {
+      rules: {
+        'no-quoteless-attributes': true,
+      },
+    };
+
+    before(async function() {
+      project = await createTempDir();
+      basePath = project.path();
+      project.write({
+        '.template-lintrc.js': `module.exports = ${JSON.stringify(expected)};`,
+        app: {
+          templates: {
+            'application.hbs': '<input disabled=false>',
+          },
+        },
+      });
+    });
+
+    this.afterAll(async function() {
+      await project.dispose();
+    });
+
+    beforeEach(function() {
+      linter = new Linter({
+        console: mockConsole,
+        configPath: path.join(basePath, '.template-lintrc.js'),
+      });
+    });
+
+    it('returns an array of issues with the provided template', function() {
+      let templatePath = path.join(basePath, 'app', 'templates', 'application.hbs');
+      let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' });
+      let expected = [
+        {
+          message: 'Attribute disabled should be either quoted or wrapped in mustaches',
+          moduleId: templatePath,
+          line: 1,
+          column: 16,
+          source: '<input disabled=false>',
+          rule: 'no-quoteless-attributes',
+          severity: 2,
+        },
+      ];
+
+      let result = linter.verifyAndFix({
+        source: templateContents,
+        moduleId: templatePath,
+      });
+
+      expect(result).to.deep.equal(expected);
+    });
+  });
+
   describe('Linter.prototype.verify', function() {
     let basePath = null;
     let linter;
