@@ -66,7 +66,7 @@ generateRuleTests({
     {
       template: '<div><input /></div>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 5,
         source: '<input />',
@@ -75,7 +75,7 @@ generateRuleTests({
     {
       template: '<input />',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<input />',
@@ -84,7 +84,7 @@ generateRuleTests({
     {
       template: '<input title="some title value" />',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<input title="some title value" />',
@@ -93,7 +93,7 @@ generateRuleTests({
     {
       template: '<label><input></label>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 7,
         source: '<input>',
@@ -102,7 +102,7 @@ generateRuleTests({
     {
       template: '<div>{{input}}</div>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 5,
         source: '{{input}}',
@@ -111,7 +111,7 @@ generateRuleTests({
     {
       template: '<Input/>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `Input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<Input/>',
@@ -120,7 +120,7 @@ generateRuleTests({
     {
       template: '<input aria-label="first label" aria-labelledby="second label">',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `input ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 0,
         source: '<input aria-label="first label" aria-labelledby="second label">',
@@ -129,7 +129,7 @@ generateRuleTests({
     {
       template: '<input id="label-input" aria-label="second label">',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `input ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 0,
         source: '<input id="label-input" aria-label="second label">',
@@ -138,7 +138,7 @@ generateRuleTests({
     {
       template: '<label>Input label<input aria-label="Custom label"></label>',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `input ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 18,
         source: '<input aria-label="Custom label">',
@@ -147,7 +147,7 @@ generateRuleTests({
     {
       template: '{{input type="button"}}',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '{{input type="button"}}',
@@ -156,7 +156,7 @@ generateRuleTests({
     {
       template: '{{input type=myType}}',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '{{input type=myType}}',
@@ -165,7 +165,7 @@ generateRuleTests({
     {
       template: '<input type="button"/>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<input type="button"/>',
@@ -174,7 +174,7 @@ generateRuleTests({
     {
       template: '<input type={{myType}}/>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<input type={{myType}}/>',
@@ -183,7 +183,7 @@ generateRuleTests({
     {
       template: '<Input type="button"/>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `Input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<Input type="button"/>',
@@ -192,7 +192,7 @@ generateRuleTests({
     {
       template: '<Input type={{myType}}/>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `Input ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<Input type={{myType}}/>',
@@ -201,7 +201,7 @@ generateRuleTests({
     {
       template: '<div><textarea /></div>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `textarea ${ERROR_MESSAGE}`,
         line: 1,
         column: 5,
         source: '<textarea />',
@@ -210,7 +210,7 @@ generateRuleTests({
     {
       template: '<textarea />',
       result: {
-        message: ERROR_MESSAGE,
+        message: `textarea ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<textarea />',
@@ -219,7 +219,7 @@ generateRuleTests({
     {
       template: '<textarea title="some title value" />',
       result: {
-        message: ERROR_MESSAGE,
+        message: `textarea ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<textarea title="some title value" />',
@@ -228,7 +228,7 @@ generateRuleTests({
     {
       template: '<label><textarea /></label>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `textarea ${ERROR_MESSAGE}`,
         line: 1,
         column: 7,
         source: '<textarea />',
@@ -237,7 +237,7 @@ generateRuleTests({
     {
       template: '<div>{{textarea}}</div>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `textarea ${ERROR_MESSAGE}`,
         line: 1,
         column: 5,
         source: '{{textarea}}',
@@ -246,7 +246,7 @@ generateRuleTests({
     {
       template: '<Textarea/>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `Textarea ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<Textarea/>',
@@ -255,7 +255,7 @@ generateRuleTests({
     {
       template: '<textarea aria-label="first label" aria-labelledby="second label" />',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `textarea ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 0,
         source: '<textarea aria-label="first label" aria-labelledby="second label" />',
@@ -264,7 +264,7 @@ generateRuleTests({
     {
       template: '<textarea id="label-textarea" aria-label="second label" />',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `textarea ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 0,
         source: '<textarea id="label-textarea" aria-label="second label" />',
@@ -273,7 +273,7 @@ generateRuleTests({
     {
       template: '<label>Textarea label<textarea aria-label="Custom label" /></label>',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `textarea ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 21,
         source: '<textarea aria-label="Custom label" />',
@@ -282,7 +282,7 @@ generateRuleTests({
     {
       template: '<div><select></select></div>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `select ${ERROR_MESSAGE}`,
         line: 1,
         column: 5,
         source: '<select></select>',
@@ -291,7 +291,7 @@ generateRuleTests({
     {
       template: '<select></select>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `select ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<select></select>',
@@ -300,7 +300,7 @@ generateRuleTests({
     {
       template: '<select title="some title value"></select>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `select ${ERROR_MESSAGE}`,
         line: 1,
         column: 0,
         source: '<select title="some title value"></select>',
@@ -309,7 +309,7 @@ generateRuleTests({
     {
       template: '<label><select></select></label>',
       result: {
-        message: ERROR_MESSAGE,
+        message: `select ${ERROR_MESSAGE}`,
         line: 1,
         column: 7,
         source: '<select></select>',
@@ -318,7 +318,7 @@ generateRuleTests({
     {
       template: '<select aria-label="first label" aria-labelledby="second label"></select>',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `select ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 0,
         source: '<select aria-label="first label" aria-labelledby="second label"></select>',
@@ -327,7 +327,7 @@ generateRuleTests({
     {
       template: '<select id="label-textarea" aria-label="second label"></select>',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `select ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 0,
         source: '<select id="label-textarea" aria-label="second label"></select>',
@@ -336,7 +336,7 @@ generateRuleTests({
     {
       template: '<label>Textarea label<select aria-label="Custom label"></select></label>',
       result: {
-        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        message: `select ${ERROR_MESSAGE_MULTIPLE_LABEL}`,
         line: 1,
         column: 21,
         source: '<select aria-label="Custom label"></select>',
