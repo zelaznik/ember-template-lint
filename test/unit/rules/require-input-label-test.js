@@ -43,7 +43,6 @@ generateRuleTests({
     '<textarea id="probablyHasLabel" />', // it's likely to have an associated label if it has an id attribute
     '<textarea aria-label={{labelText}} />',
     '<textarea aria-labelledby="someIdValue" />',
-    '<div></div>',
     '<textarea ...attributes />', // we are unable to correctly determine if this has a label or not, so we have to allow it
     '<Textarea ...attributes />',
     '<Textarea id="foo" />',
@@ -51,6 +50,16 @@ generateRuleTests({
     '<label>Text here<Textarea /></label>',
     '<label>Text here {{textarea}}</label>',
     '<textarea id="label-textarea" ...attributes />',
+
+    // Same logic applies to select options
+    '<label>LabelText<select><option value="volvo">Volvo</option></select></label>',
+    '<label><select><option value="volvo">Volvo</option></select>LabelText</label>',
+    '<label>Label Text<div><select><option value="volvo">Volvo</option></select></div></label>', // technically okay, hopefully no one does this though
+    '<select id="probablyHasLabel"><option value="volvo">Volvo</option></select>', // it's likely to have an associated label if it has an id attribute
+    '<select aria-label={{this.labelText}}><option value="volvo">Volvo</option></select>',
+    '<select aria-labelledby="someIdValue"><option value="volvo">Volvo</option></select>',
+    '<select ...attributes><option value="volvo">Volvo</option></select>', // we are unable to correctly determine if this has a label or not, so we have to allow it
+    '<select id="label-select" ...attributes><option value="volvo">Volvo</option></select>',
   ],
 
   bad: [
@@ -268,6 +277,69 @@ generateRuleTests({
         line: 1,
         column: 21,
         source: '<textarea aria-label="Custom label" />',
+      },
+    },
+    {
+      template: '<div><select></select></div>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 5,
+        source: '<select></select>',
+      },
+    },
+    {
+      template: '<select></select>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<select></select>',
+      },
+    },
+    {
+      template: '<select title="some title value"></select>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 0,
+        source: '<select title="some title value"></select>',
+      },
+    },
+    {
+      template: '<label><select></select></label>',
+      result: {
+        message: ERROR_MESSAGE,
+        line: 1,
+        column: 7,
+        source: '<select></select>',
+      },
+    },
+    {
+      template: '<select aria-label="first label" aria-labelledby="second label"></select>',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 0,
+        source: '<select aria-label="first label" aria-labelledby="second label"></select>',
+      },
+    },
+    {
+      template: '<select id="label-textarea" aria-label="second label"></select>',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 0,
+        source: '<select id="label-textarea" aria-label="second label"></select>',
+      },
+    },
+    {
+      template: '<label>Textarea label<select aria-label="Custom label"></select></label>',
+      result: {
+        message: ERROR_MESSAGE_MULTIPLE_LABEL,
+        line: 1,
+        column: 21,
+        source: '<select aria-label="Custom label"></select>',
       },
     },
   ],
